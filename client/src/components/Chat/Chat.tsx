@@ -10,7 +10,10 @@ const Chat = () => {
   const room = useQuery().get("room");
 
   useEffect(() => {
-    socket = io("http://localhost:5000");
+    socket = io("localhost:5000");
+    socket.emit("join", { name, room }, ({ error }: any) => {
+      alert(error);
+    });
   }, [name, room]);
   return <div>Chat</div>;
 };
