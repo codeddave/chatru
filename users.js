@@ -1,4 +1,4 @@
-const users = [];
+let users = [];
 
 const addUser = ({ id, name, room }) => {
   name = name.trim().toLowerCase();
@@ -19,7 +19,9 @@ const addUser = ({ id, name, room }) => {
   users.push(user);
   return { user };
 };
-const removeUser = () => {};
+const removeUser = (id) => {
+  users = users.filter((user) => user.id !== id);
+};
 
 const getUser = () => {};
 const getUsersInRoom = () => {};
