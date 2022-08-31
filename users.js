@@ -1,4 +1,4 @@
-let users = [];
+const users = [];
 
 const addUser = ({ id, name, room }) => {
   name = name.trim().toLowerCase();
@@ -20,7 +20,12 @@ const addUser = ({ id, name, room }) => {
   return { user };
 };
 const removeUser = (id) => {
-  users = users.filter((user) => user.id !== id);
+  // users = users.filter((user) => user.id !== id);
+
+  const index = users.findIndex((user) => user.id === id);
+  if (index !== -l) {
+    return users.splice(index, 1)[0];
+  }
 };
 
 const getUser = () => {};
