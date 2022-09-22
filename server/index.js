@@ -3,7 +3,7 @@ const socketio = require("socket.io");
 const http = require("http");
 const cors = require("cors");
 const router = require("./router");
-const { addUser } = require("../users");
+const { addUser, getUser } = require("../users");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -25,12 +25,19 @@ io.on("connection", (socket) => {
       user: "admin",
       text: `${user.name}, welcome to the room - ${user.room}`,
     });
-    // let everyone know that a user has joined
+    // let everyone know that a user has joined, alers all users except the user who joined
     socket.broadcast
       .to(user.room)
       .emit("message", { user: "admin", text: `${user.name} has joined!` });
 
     socket.join(user.room);
+    callback();
+  });
+
+  socket.on("sendMessage", (message, callback) => {
+    const user = getUser(socket.id);
+
+    io.to(user.room).emit("meesage", { user: user.name, text: message });
   });
 
   socket.on("disconnect", () => {
