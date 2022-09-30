@@ -3,7 +3,7 @@ const socketio = require("socket.io");
 const http = require("http");
 const cors = require("cors");
 const router = require("./router");
-const { addUser, getUser } = require("../users");
+const { addUser, getUser } = require("./users");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -35,6 +35,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("sendMessage", (message, callback) => {
+    console.log(message, "here");
     const user = getUser(socket.id);
 
     io.to(user.room).emit("meesage", { user: user.name, text: message });

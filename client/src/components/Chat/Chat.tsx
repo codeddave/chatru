@@ -18,8 +18,8 @@ const Chat = () => {
 
   useEffect(() => {
     socket = io("localhost:5000");
-    socket.emit("join", { name, room }, ({ error }: any) => {
-      alert(error);
+    socket.emit("join", { name, room }, (error: any) => {
+      if (error) alert(error);
     });
 
     return () => {
@@ -34,14 +34,22 @@ const Chat = () => {
     });
   }, [messages]);
 
-  const sendMessage = () => {};
+  const sendMessage = (e: any) => {
+    console.log("ahhhh");
+    e.preventDefault();
+    if (message) {
+      // send message and clear input
+      socket.emit("sendMessage", message, () => setMessage(""));
+    }
+  };
+  console.log(message, messages);
   return (
     <div className="outerContainer">
       <div className="container">
         <input
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          onKeyPress={(e) => (e.key === "Enter" ? sendMessage() : null)}
+          onKeyPress={(e) => (e.key === "Enter" ? sendMessage(e) : null)}
         />
       </div>
     </div>
