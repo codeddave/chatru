@@ -33,10 +33,16 @@ const Chat = () => {
       setMessages([...messages, message]);
     });
   }, [messages]);
+
+  const sendMessage = () => {};
   return (
     <div className="outerContainer">
       <div className="container">
-        <input value={message} onChange={(e) => setMessage(e.target.value)} />
+        <input
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyPress={(e) => (e.key === "Enter" ? sendMessage() : null)}
+        />
       </div>
     </div>
   );
