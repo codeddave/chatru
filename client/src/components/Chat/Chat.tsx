@@ -33,7 +33,13 @@ const Chat = () => {
       setMessages([...messages, message]);
     });
   }, [messages]);
-  return <div>Chat</div>;
+  return (
+    <div className="outerContainer">
+      <div className="container">
+        <input value={message} onChange={(e) => setMessage(e.target.value)} />
+      </div>
+    </div>
+  );
 };
 
 export default Chat;
