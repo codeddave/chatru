@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 import { useQuery } from "../../hooks";
+import InfoBar from "../InfoBar/InfoBar";
 
 import "./Chat.css";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -46,11 +47,12 @@ const Chat = () => {
   return (
     <div className="outerContainer">
       <div className="container">
-        <input
+        <InfoBar room={room} />
+        {/*    <input
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyPress={(e) => (e.key === "Enter" ? sendMessage(e) : null)}
-        />
+        /> */}
       </div>
     </div>
   );
