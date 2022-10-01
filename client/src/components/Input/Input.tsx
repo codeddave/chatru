@@ -17,7 +17,9 @@ const Input = ({ message, sendMessage, setMessage }: InputProps) => {
         onKeyPress={(e) => (e.key === "Enter" ? sendMessage(e) : null)}
       />
 
-      <button></button>
+      <button className="sendButton" onClick={sendMessage}>
+        Send
+      </button>
     </form>
   );
 };
