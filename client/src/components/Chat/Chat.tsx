@@ -3,14 +3,11 @@ import io from "socket.io-client";
 import { useQuery } from "../../hooks";
 import InfoBar from "../InfoBar/InfoBar";
 import Input from "../Input/Input";
-
+import Messages from "../Messages/Messages";
+import { MessageType } from "../types";
 import "./Chat.css";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
-type MessageType = {
-  user: string;
-  text: string;
-};
 let socket: any;
 const Chat = () => {
   const name = useQuery().get("name");
@@ -49,6 +46,7 @@ const Chat = () => {
     <div className="outerContainer">
       <div className="container">
         <InfoBar room={room} />
+        <Messages messages={messages} name={name} />
         <Input
           message={message}
           setMessage={setMessage}
