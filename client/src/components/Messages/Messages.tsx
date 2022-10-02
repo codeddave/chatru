@@ -6,7 +6,7 @@ import "./Messages.css";
 
 type MessagesProps = {
   messages: MessageType[];
-  name: string;
+  name: string | null;
 };
 const Messages = ({ messages, name }: MessagesProps) => {
   return (
