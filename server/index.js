@@ -3,7 +3,7 @@ const socketio = require("socket.io");
 const http = require("http");
 const cors = require("cors");
 const router = require("./router");
-const { addUser, getUser } = require("./users");
+const { addUser, getUser, removeUser } = require("./users");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -44,7 +44,14 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    console.log("user had left");
+    const user = removeUser(socket.id);
+
+    if (user) {
+      io.to(user.room).emit("message", {
+        user: "admin",
+        text: `${user.name} has left`,
+      });
+    }
   });
 });
 app.use(router);
