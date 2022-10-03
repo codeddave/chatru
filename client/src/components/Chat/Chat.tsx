@@ -34,14 +34,12 @@ const Chat = () => {
   }, [messages]);
 
   const sendMessage = (e: any) => {
-    console.log("ahhhh");
     e.preventDefault();
     if (message) {
       // send message and clear input
       socket.emit("sendMessage", message, () => setMessage(""));
     }
   };
-  console.log(message, messages);
   return (
     <div className="outerContainer">
       <div className="container">
