@@ -10,7 +10,7 @@ type MessagesProps = {
 };
 const Messages = ({ messages, name }: MessagesProps) => {
   return (
-    <ScrollToBottom>
+    <ScrollToBottom className="messages">
       {messages.map((message, index) => (
         <div key={index}>
           <Message message={message} name={name} />
