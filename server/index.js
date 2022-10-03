@@ -3,7 +3,7 @@ const socketio = require("socket.io");
 const http = require("http");
 const cors = require("cors");
 const router = require("./router");
-const { addUser, getUser, removeUser } = require("./users");
+const { addUser, getUser, removeUser, getUsersInRoom } = require("./users");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -31,13 +31,15 @@ io.on("connection", (socket) => {
       .emit("message", { user: "admin", text: `${user.name} has joined!` });
 
     socket.join(user.room);
+    io.to(user.room).emit("roomData", {
+      room: user.room,
+      users: getUsersInRoom(user.room),
+    });
     callback();
   });
 
   socket.on("sendMessage", (message, callback) => {
-    console.log(message, "here");
     const user = getUser(socket.id);
-    console.log(user);
     io.to(user.room).emit("message", { user: user.name, text: message });
 
     callback();
