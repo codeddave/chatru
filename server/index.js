@@ -4,13 +4,13 @@ const http = require("http");
 const cors = require("cors");
 const router = require("./router");
 const { addUser, getUser, removeUser, getUsersInRoom } = require("./users");
-
+const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 5000;
 app.use(cors());
 
 const server = http.createServer(app);
-
+app.use(cors());
 const io = socketio(server, { cors: { origin: "*" } });
 
 io.on("connection", (socket) => {
